@@ -13,3 +13,5 @@ To-do list for those who want to contribute:
 -Spelling mistakes in the txt files
 
 -Add mv command to move file.
+
+-Fuck around untill you break something, then report
