@@ -12,4 +12,4 @@ To-do list for those who want to contribute:
 
 -Spelling mistakes in the txt files
 
--Add mv to move file.
+-Add mv command to move file.
