@@ -13,6 +13,8 @@ pygame.display.set_caption("Pygame Terminal")
 BLACK = (0, 0, 0)
 WHITE = (255, 255, 255)
 GRAY = (50, 50, 50)
+GREEN = (100, 255, 100)
+BLUE = (100, 100, 255)
 
 # Font setup
 FONT_SIZE = 20
@@ -39,11 +41,12 @@ cursor_timer = 0
 # Global variables
 location = "~"
 command_history = []
-top_half_text = ["You have been dropped into an unknown filesystem."
-    , "You have no memory of how you got here, but you know 2 things:"
-    , "- Look around you by typing ls"
-    , "- Read scrolls (.txt) by typing cat file_name.txt"
-    ]
+top_half_text = [
+    {"text": "You have been dropped into an unknown filesystem.", "color": WHITE},
+    {"text": "You have no memory of how you got here, but you know 2 things:", "color": WHITE},
+    {"text": "- Look around you by typing ls", "color": GREEN},
+    {"text": "- Read scrolls (.txt) by typing cat file_name.txt", "color": GREEN}
+]
 
 # File system structure
 files = [
@@ -64,18 +67,14 @@ def cmd_ls(args):
     files_in_location = []
     for file in files:
         if file["path"].startswith(location) and file["path"] != location:
-            # Remove the current location from the file path
-            relative_path = file["path"][len(location):]
-            relative_path = relative_path.strip('/')
+            relative_path = file["path"][len(location):].strip('/')
             components = relative_path.split('/')
-            # Check if the file is directly under the current location
             if len(components) == 1 and components[0]:
-                # Append '/' to directories for clarity
                 entry = components[0] + ('/' if file["is_directory"] else '')
-                files_in_location.append(entry)
-    files_str = " ".join(files_in_location)
-    print(files_str)
-    return [files_str]
+                color = BLUE if file["is_directory"] else GREEN
+                files_in_location.append({"text": entry, "color": color})
+    
+    return files_in_location
 
 def cmd_cd(args):
     global location
@@ -115,7 +114,7 @@ def cmd_pwd(args):
 def cmd_cat(args):
     global location
     if not args:
-        return ["Usage: cat <.txt file>"]
+        return [{"text": "Usage: cat <.txt file>", "color": YELLOW}]
     inp = args[0]
     target = location + inp
 
@@ -127,10 +126,10 @@ def cmd_cat(args):
     try:
         with open(inp, 'r') as file:
             content = file.read()
-        print_to_top(content)
+        print_to_top(content, GREEN)
         return []
     except FileNotFoundError:
-        return [f"File not found: {inp}"]
+        return [{"text": f"File not found: {inp}", "color": RED}]
 
 def cmd_mkdir(args):
     global location
@@ -176,14 +175,17 @@ def process_command(user_input):
         result = commands[cmd](args)
         command_history.extend(result)
     else:
-        command_history.append(f"Command not found: {cmd}")
+        command_history.append({"text": f"Command not found: {cmd}", "color": RED})
 
 def draw_terminal():
     terminal_surface.fill(BLACK)
     
     history_start_y = terminal_height - FONT_SIZE * 2 - 20
     for line in reversed(command_history[-9:]):
-        font.render_to(terminal_surface, (10, history_start_y), line, WHITE)
+        if isinstance(line, dict):
+            font.render_to(terminal_surface, (10, history_start_y), line["text"], line["color"])
+        else:
+            font.render_to(terminal_surface, (10, history_start_y), line, WHITE)
         history_start_y -= FONT_SIZE
     
     input_y = terminal_height - FONT_SIZE - 10
@@ -200,14 +202,14 @@ def draw_top_half():
     top_half_surface.fill(GRAY)
     
     for i, line in enumerate(top_half_text[-12:]):  # Display up to 12 lines
-        font.render_to(top_half_surface, (10, i * FONT_SIZE), line, WHITE)
+        font.render_to(top_half_surface, (10, i * FONT_SIZE), line["text"], line["color"])
     
     screen.blit(top_half_surface, top_half_rect)
 
-def print_to_top(text):
+def print_to_top(text, color=WHITE):
     lines = text.split('\n')
     for line in lines:
-        top_half_text.append(line)
+        top_half_text.append({"text": line, "color": color})
 
 running = True
 clock = pygame.time.Clock()
