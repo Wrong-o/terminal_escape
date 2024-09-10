@@ -91,7 +91,9 @@ def cmd_cd(args):
             return location
 
     inp = args[0]
-    if inp[:1] != "/":
+    print(inp)
+    print(location[-1])
+    if location[-1] != "/":
         inp = "/" + inp
     
     if inp == "..":
@@ -100,7 +102,7 @@ def cmd_cd(args):
     else:
         new_loc = location + inp if (location.endswith('/') or location == "~") else location + '/' + inp
         new_loc = new_loc if new_loc.endswith('/') else new_loc + '/'
-    
+    print(new_loc)
     for file in files:
         if file["path"] == new_loc and file["is_directory"]:
             if file["access"] == "open":
@@ -153,7 +155,7 @@ def cmd_mkdir(args):
     inp = new_dir + args[0] + "/"
     
     # Append the new directory to the files list
-    files.append({"path": inp, "is_directory": True})
+    files.append({"path": inp, "is_directory": True, "access": "open"})
     return ["Path added"]
 
 def cmd_mv(args):
