@@ -2,7 +2,7 @@
 This is a game made for practicing the command line through bash.
 This i primarly a PRACTISE PROJECT for me and my fellow students the AI engineering program.  
 
-To play, run ```bash python main.py ```
+To play, run ```python main.py ```
 
 The goal is to have a game where the player progressively gets more bash commands.
 
