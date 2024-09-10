@@ -8,7 +8,9 @@ The goal is to have a game where the player progressively gets more bash command
 
 To-do list for those who want to contribute:
 
--LS is not working properly, it lists files in sub directories
+-LS is not working properly, it lists files in sub directories (fixed)
+
+-CD is not consistent with syntax, sometime cd /dir and sometime cd dir/
 
 -Spelling mistakes in the txt files
 
