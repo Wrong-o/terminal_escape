@@ -1,0 +1,6 @@
+
+>There is a way out
+>The door, /exit/
+>Key is missing
+>Sorry
+//Tux
