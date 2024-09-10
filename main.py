@@ -15,6 +15,8 @@ WHITE = (255, 255, 255)
 GRAY = (50, 50, 50)
 GREEN = (100, 255, 100)
 BLUE = (100, 100, 255)
+YELLOW = (100, 255, 255)
+RED = (255, 100, 100)
 
 # Font setup
 FONT_SIZE = 20
@@ -85,10 +87,13 @@ def cmd_cd(args):
         if location == "~":
             return location
         else: 
-            location = "/".join(location.rstrip("/").split("/")[:-1]) + "/"
+            location = "/".join(location.rstrip("/").split("/")[:-1])
             return location
 
     inp = args[0]
+    if inp[:1] != "/":
+        inp = "/" + inp
+    
     if inp == "..":
         new_loc = "/".join(location.split("/")[:-2]) + "/"
         new_loc = "~" if new_loc == "" else new_loc
