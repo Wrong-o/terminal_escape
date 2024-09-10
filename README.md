@@ -15,3 +15,7 @@ To-do list for those who want to contribute:
 -Add mv command to move file.
 
 -Fuck around untill you break something, then report
+
+-Add some graphics in top half
+
+-Add music or sound effects
