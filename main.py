@@ -50,12 +50,12 @@ top_half_text = [
 
 # File system structure
 files = [
-    {"path": "~", "is_directory": True},
-    {"path": "~note.txt", "is_directory": False},
-    {"path": "~/ruins/", "is_directory": True},
-    {"path": "~/ruins/chest.txt", "is_directory": False},
-    {"path": "~/exit/", "is_directory": True},
-    {"path": "~/ruins/hole/key", "is_directory": False}
+    {"path": "~", "is_directory": True, "access": "open"},
+    {"path": "~note.txt", "is_directory": False, "access": "open"},
+    {"path": "~/ruins/", "is_directory": True, "access": "open"},
+    {"path": "~/ruins/chest.txt", "is_directory": False, "access": "open"},
+    {"path": "~/exit/", "is_directory": True, "access": "locked"},
+    {"path": "~/ruins/hole/key", "is_directory": False, "access": "open"}
 ]
 
 # Global variables
@@ -98,8 +98,11 @@ def cmd_cd(args):
     
     for file in files:
         if file["path"] == new_loc and file["is_directory"]:
-            location = new_loc
-            return []
+            if file["access"] == "open":
+                location = new_loc
+                return []
+            else:
+                return [f"cd: {inp} is locked"]
     
     return [f"cd: {inp}: No such file or directory"]
 
