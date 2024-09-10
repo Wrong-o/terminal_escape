@@ -51,7 +51,8 @@ files = [
     {"path": "~note.txt", "is_directory": False},
     {"path": "~/ruins/", "is_directory": True},
     {"path": "~/ruins/chest.txt", "is_directory": False},
-    {"path": "~/exit/", "is_directory": True}
+    {"path": "~/exit/", "is_directory": True},
+    {"path": "~/ruins/hole/key", "is_directory": False}
 ]
 
 # Global variables
@@ -60,10 +61,18 @@ command_history = []
 
 # Command functions
 def cmd_ls(args):
-    files_in_location = [file["path"].replace(location, '') for file in files if file["path"].startswith(location)
-                         and file["path"] != location
-                         ]
-    
+    files_in_location = []
+    for file in files:
+        if file["path"].startswith(location) and file["path"] != location:
+            # Remove the current location from the file path
+            relative_path = file["path"][len(location):]
+            relative_path = relative_path.strip('/')
+            components = relative_path.split('/')
+            # Check if the file is directly under the current location
+            if len(components) == 1 and components[0]:
+                # Append '/' to directories for clarity
+                entry = components[0] + ('/' if file["is_directory"] else '')
+                files_in_location.append(entry)
     files_str = " ".join(files_in_location)
     print(files_str)
     return [files_str]
@@ -125,14 +134,24 @@ def cmd_cat(args):
 
 def cmd_mkdir(args):
     global location
-    inp = location + args[0]
-    print(inp)
-    return inp
-
-
-#def cmd_mkdir(args):
+    global files
     
+    if location[-1] == "/":
+         print("location ends with /")  
+         new_dir = location
+    else:
+        new_dir = location + "/"
+        print(new_dir)
+    # Construct the new directory path
+    inp = new_dir + args[0] + "/"
+    
+    # Append the new directory to the files list
+    files.append({"path": inp, "is_directory": True})
+    return ["Path added"]
 
+def cmd_mv(args):
+    print(args)
+    return []
 
 # Command dispatcher
 commands = {
@@ -141,7 +160,8 @@ commands = {
     "clear": cmd_clear,
     "pwd": cmd_pwd,
     "cat": cmd_cat,
-    "mkdir": cmd_mkdir
+    "mkdir": cmd_mkdir,
+    "mv": cmd_mv
     }
 
 def process_command(user_input):
@@ -193,10 +213,7 @@ running = True
 clock = pygame.time.Clock()
 input_text = ""
 
-
-
-
-
+#This is the main game loop
 while running:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
@@ -209,12 +226,12 @@ while running:
                 input_text = input_text[:-1]
             else:
                 input_text += event.unicode
-    
+    #This section handles cursor blinking
     cursor_timer += clock.get_time()
     if cursor_timer >= 500:
         cursor_visible = not cursor_visible
         cursor_timer = 0
-    
+    #Draws the screen 
     screen.fill(GRAY)
     draw_top_half()
     draw_terminal()
