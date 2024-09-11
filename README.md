@@ -14,7 +14,7 @@ To-do list for those who want to contribute:
 
 -Spelling mistakes in the txt files
 
--Add mv command to move file. (In progress Otto)
+-Add mv command to move file. (Completed Otto)
 
 -Fuck around untill you break something, then report
 
