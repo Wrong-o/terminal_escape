@@ -159,9 +159,14 @@ def cmd_mkdir(args):
     return ["Path added"]
 
 def cmd_mv(args):
-    print(args)
+    global location
+    old_loc = args[0]
+    new_loc = args[1]
+    print(old_loc, new_loc)
     return []
 
+def cmd_touch(args):
+    return []
 # Command dispatcher
 commands = {
     "ls": cmd_ls,
