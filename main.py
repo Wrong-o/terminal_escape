@@ -160,13 +160,27 @@ def cmd_mkdir(args):
 
 def cmd_mv(args):
     global location
-    old_loc = args[0]
-    new_loc = args[1]
-    print(old_loc, new_loc)
-    return []
+    exist = False
+    if len(args) != 2:
+        return ["Usage: mv <file> <new location>"]
+    old_file = location + args[0]
+    print(old_file)
+    new_file = args[1]
+    for file in files:
+        if file["path"] == old_file:
+            exist = True
+            break
+        else:
+            continue
+    if exist:
+        print("fdwwsf")
+    else:
+        return [f"cd: {old_file}: File not found"]
+    return [f"{old_file} is moved to {new_file}"]
 
 def cmd_touch(args):
     return []
+
 # Command dispatcher
 commands = {
     "ls": cmd_ls,
@@ -175,7 +189,8 @@ commands = {
     "pwd": cmd_pwd,
     "cat": cmd_cat,
     "mkdir": cmd_mkdir,
-    "mv": cmd_mv
+    "mv": cmd_mv,
+    "touch": cmd_touch
     }
 
 def process_command(user_input):

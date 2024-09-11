@@ -10,11 +10,11 @@ To-do list for those who want to contribute:
 
 -LS is not working properly, it lists files in sub directories (fixed)
 
--CD is not consistent with syntax, sometime cd /dir and sometime cd dir/
+-CD is not consistent with syntax, sometime cd /dir and sometime cd dir/ (fixed)
 
 -Spelling mistakes in the txt files
 
--Add mv command to move file.
+-Add mv command to move file. (In progress Otto)
 
 -Fuck around untill you break something, then report
 
