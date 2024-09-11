@@ -75,8 +75,10 @@ def cmd_ls(args):
                 entry = components[0] + ('/' if file["is_directory"] else '')
                 color = BLUE if file["is_directory"] else GREEN
                 files_in_location.append({"text": entry, "color": color})
-    
-    return files_in_location
+    if files_in_location:
+        return files_in_location
+    else:
+        return ["ls: no files or directories found in this directory"]
 
 def cmd_cd(args):
     global location
@@ -162,6 +164,7 @@ def cmd_mkdir(args):
 
 def cmd_mv(args):
     global location
+    global files
     exist = False
     if len(args) != 2:
         return ["Usage: mv <file> <new location>"]
@@ -175,10 +178,27 @@ def cmd_mv(args):
         else:
             continue
     if exist:
-        print("fdwwsf")
+        print("File extists")
+        if "/" in new_file:
+            target_dir =(new_file.rsplit("/", 1)[0] + "/")
+        else:
+            target_dir = "~"
+        print(target_dir)
+        for file in files:
+            if file["path"] == target_dir:
+                if file["access"] == "open":
+                    files = [file for file in files if file["path"] != old_file]
+                    files.append({"path": new_file, "is_directory": False, "access": "open"})
+                    print("file moved")
+                    return [f"{old_file} is moved to {new_file}"]
+                else:
+                    print("Target directory is locked")
+                    return [f"{old_file} was not moved, {target_dir} is locked"]
+
+
     else:
         return [f"cd: {old_file}: File not found"]
-    return [f"{old_file} is moved to {new_file}"]
+    
 
 def cmd_touch(args):
     return []
