@@ -144,6 +144,8 @@ def cmd_cat(args):
 def cmd_mkdir(args):
     global location
     global files
+    if not args:
+        return ["Usage: mkdir <new directory>"]
     
     if location[-1] == "/":
          print("location ends with /")  
