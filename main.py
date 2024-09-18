@@ -1,6 +1,8 @@
 import pygame
 import pygame.freetype
 import os
+import json
+import sys
 
 pygame.init()
 
@@ -38,8 +40,6 @@ input_prefix = "$ "
 cursor_visible = True
 cursor_timer = 0
 
-
-
 # Global variables
 location = "~"
 command_history = []
@@ -51,14 +51,9 @@ top_half_text = [
 ]
 
 # File system structure
-files = [
-    {"path": "~", "is_directory": True, "access": "open"},
-    {"path": "~note.txt", "is_directory": False, "access": "open"},
-    {"path": "~/ruins/", "is_directory": True, "access": "open"},
-    {"path": "~/ruins/chest.txt", "is_directory": False, "access": "open"},
-    {"path": "~/exit/", "is_directory": True, "access": "locked"},
-    {"path": "~/ruins/hole/key", "is_directory": False, "access": "open"}
-]
+with open("level_1/files.json", "r") as f:
+    print("files found")
+    files = json.load(f)
 
 # Global variables
 location = "~"
@@ -199,9 +194,12 @@ def cmd_mv(args):
     else:
         return [f"cd: {old_file}: File not found"]
     
-
 def cmd_touch(args):
     return []
+
+def cmd_exit(args):
+    pygame.quit()
+    sys.exit()
 
 # Command dispatcher
 commands = {
@@ -212,7 +210,8 @@ commands = {
     "cat": cmd_cat,
     "mkdir": cmd_mkdir,
     "mv": cmd_mv,
-    "touch": cmd_touch
+    "touch": cmd_touch,
+    "exit": cmd_exit
     }
 
 def process_command(user_input):
@@ -268,6 +267,7 @@ clock = pygame.time.Clock()
 input_text = ""
 
 #This is the main game loop
+
 while running:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
