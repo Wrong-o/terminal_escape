@@ -2,31 +2,36 @@
     {
         "path": "~",
         "is_directory": true,
-        "access": "open"
+        "access": "open",
+        "content": ""
     },
     {
         "path": "~note.txt",
         "is_directory": false,
-        "access": "open"
-    },
+        "access": "open",
+        "content": ">There is a way out\n>The door, /exit/\n>Key is missing\n>Sorry\n//Tux"
+},
     {
         "path": "~/ruins/",
         "is_directory": true,
-        "access": "open"
+        "access": "open",
+        "content": ""
     },
     {
         "path": "~/ruins/chest.txt",
         "is_directory": false,
-        "access": "open"
-    },
+        "access": "open",
+        "content": "In the chest, you find a shovel and a piece of paper:\n>I buried the key in a HOLE in these RUINS!\n>Cannot be found! Don't try!\nYou pick up the shovel.\n*The SHOVEL can be USED with \"mkdir\"*"    },
     {
         "path": "~/exit/",
         "is_directory": true,
-        "access": "locked"
+        "access": "locked",
+        "content": ""
     },
     {
         "path": "~/ruins/hole/key",
         "is_directory": false,
-        "access": "open"
+        "access": "open",
+        "content": ""
     }
 ]

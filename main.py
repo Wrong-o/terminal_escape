@@ -80,15 +80,15 @@ def cmd_cd(args):
     if not args:
         return ["Usage: cd <directory>"]
 
-    inp = args[0]
-
+    inp = args[0]        
 
     if location[-1] != "/":
         inp = "/" + inp
     
     if inp == "..":
         new_loc = "/".join(location.split("/")[:-2]) + "/"
-        new_loc = "~" if new_loc == "" else new_loc
+        if new_loc == "~/":
+            new_loc = "~"
     elif inp == "~":
         new_loc = "~"
     else:
@@ -115,20 +115,18 @@ def cmd_pwd(args):
 
 def cmd_cat(args):
     global location
+    global files
     if not args:
         return [{"text": "Usage: cat <.txt file>", "color": YELLOW}]
     inp = args[0]
     target = location + inp
-
-    files_in_location = [f["path"] for f in files 
-                         if f["path"].startswith(location) 
-                         and not f["is_directory"]
-                         and "/" not in f["path"][len(location):]]
-    
+    print(target)
     try:
-        with open(inp, 'r') as file:
-            content = file.read()
-        print_to_top(content, GREEN)
+        for file in files:
+            if file["path"] == target:
+                print_to_top(file["content"], color = GREEN)
+                return []
+
         return []
     except FileNotFoundError:
         return [{"text": f"File not found: {inp}", "color": RED}]
@@ -151,6 +149,13 @@ def cmd_mkdir(args):
     # Append the new directory to the files list
     files.append({"path": inp, "is_directory": True, "access": "open"})
     return ["Path added"]
+
+def cmd_echo(args):
+    if not args:
+        return ["Usage: echo <text>"]
+
+    echo_text = args[0]
+    return [echo_text]
 
 def cmd_mv(args):
     global location
@@ -187,7 +192,7 @@ def cmd_mv(args):
 
 
     else:
-        return [f"cd: {old_file}: File not found"]
+        return [f"mv: {old_file}: File not found"]
     
 def cmd_touch(args):
     global location
@@ -226,7 +231,8 @@ commands = {
     "mkdir": cmd_mkdir,
     "mv": cmd_mv,
     "touch": cmd_touch,
-    "exit": cmd_exit
+    "exit": cmd_exit,
+    "echo": cmd_echo
     }
 
 def process_command(user_input):
