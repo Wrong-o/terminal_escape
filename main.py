@@ -190,10 +190,27 @@ def cmd_mv(args):
         return [f"cd: {old_file}: File not found"]
     
 def cmd_touch(args):
+    global location
     global files
     if not args:
         return ["Usage: touch <new_file.file_type>"]
-    return []
+    print( args[0])
+
+    if location[-1] == "/":
+        dir_for_file = location  
+    else:
+        dir_for_file = location + "/"
+    
+    new_file = {"path": dir_for_file + args[0], "is_directory": False, "access": "open"}
+    print(new_file)
+
+    if new_file not in files:
+        files.append(new_file)
+        return ["File created"]
+
+    else:
+        return ["File alreade exists."]
+        
 
 def cmd_exit(args):
     pygame.quit()
