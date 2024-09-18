@@ -79,27 +79,22 @@ def cmd_cd(args):
     global location
     if not args:
         return ["Usage: cd <directory>"]
-    
-    if str(args[0]) == "..":
-        if location == "~":
-            return location
-        else: 
-            location = "/".join(location.rstrip("/").split("/")[:-1])
-            return location
 
     inp = args[0]
-    print(inp)
-    print(location[-1])
+
+
     if location[-1] != "/":
         inp = "/" + inp
     
     if inp == "..":
         new_loc = "/".join(location.split("/")[:-2]) + "/"
         new_loc = "~" if new_loc == "" else new_loc
+    elif inp == "~":
+        new_loc = "~"
     else:
         new_loc = location + inp if (location.endswith('/') or location == "~") else location + '/' + inp
         new_loc = new_loc if new_loc.endswith('/') else new_loc + '/'
-    print(new_loc)
+
     for file in files:
         if file["path"] == new_loc and file["is_directory"]:
             if file["access"] == "open":
@@ -195,6 +190,9 @@ def cmd_mv(args):
         return [f"cd: {old_file}: File not found"]
     
 def cmd_touch(args):
+    global files
+    if not args:
+        return ["Usage: touch <new_file.file_type>"]
     return []
 
 def cmd_exit(args):
