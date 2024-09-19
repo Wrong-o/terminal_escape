@@ -71,6 +71,7 @@ def cmd_ls(args):
                 color = BLUE if file["is_directory"] else GREEN
                 files_in_location.append({"text": entry, "color": color})
     if files_in_location:
+        command_history.append(f"Files in directory {location}:")
         return files_in_location
     else:
         return ["ls: no files or directories found in this directory"]
@@ -151,11 +152,30 @@ def cmd_mkdir(args):
     return [f"New directory {inp} added"]
 
 def cmd_echo(args):
-    if not args:
-        return ["Usage: echo <text>"]
-
-    echo_text = args[0]
-    return [echo_text]
+    global location
+    global files
+    print(len(args))
+    if len(args) == 1:
+        echo_text = args[0]
+        return [echo_text]
+    
+    elif len(args) == 3:
+        if args[1] == ">>":
+            target_file = location + args[2]
+            for file in files:
+                if target_file in file["path"]:
+                    file["content"] = file["content"] +"\n" + args[0]
+                    print(file["content"])
+                    #file["content"] += args[0]
+                    return [f"{args[0]} added to {args[2]}"]
+                else:
+                    print("Fux")
+            return [f"{args[0]} added to {args[2]}"]
+        else:
+            return ["Usage 1: echo <text> to print in terminal" , "Usage 2: echo <text> >> <target_file> to append text to file"] 
+          
+    else:
+        return ["Usage 1: echo <text> to print in terminal" , "Usage 2: echo <text> >> <target_file> to append text to file"]
 
 def cmd_mv(args):
     global location
@@ -314,3 +334,4 @@ while running:
     clock.tick(60)
 
 pygame.quit()
+hello
