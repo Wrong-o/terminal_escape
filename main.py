@@ -153,11 +153,9 @@ def cmd_mkdir(args):
         return ["Usage: mkdir <new directory>"]
     
     if location[-1] == "/":
-         print("location ends with /")  
          new_dir = location
     else:
         new_dir = location + "/"
-        print(new_dir)
     # Construct the new directory path
     inp = new_dir + args[0] + "/"
     
@@ -168,7 +166,6 @@ def cmd_mkdir(args):
 def cmd_echo(args):
     global location
     global files
-    print(len(args))
     if len(args) == 1:
         echo_text = args[0]
         return [echo_text]
@@ -179,11 +176,7 @@ def cmd_echo(args):
             for file in files:
                 if target_file in file["path"]:
                     file["content"] = file["content"] +"\n" + args[0]
-                    print(file["content"])
-                    #file["content"] += args[0]
                     return [f"{args[0]} added to {args[2]}"]
-                else:
-                    print("Fux")
             return [f"{args[0]} added to {args[2]}"]
         else:
             return ["Usage 1: echo <text> to print in terminal" , "Usage 2: echo <text> >> <target_file> to append text to file"] 
@@ -201,7 +194,6 @@ def cmd_mv(args):
         return ["Usage: mv <file> <new location>"]
 
     old_file = location + args[0]
-    # print(old_file) # Is this for debugging? I didnt want to remove it
     new_file = args[1]
     
     # Check if the player is moving the key and has it in their inventory
@@ -250,7 +242,7 @@ def cmd_touch(args):
     global files
     if not args:
         return ["Usage: touch <new_file.file_type>"]
-    print( args[0])
+
 
     if location[-1] == "/":
         dir_for_file = location  
@@ -258,7 +250,7 @@ def cmd_touch(args):
         dir_for_file = location + "/"
     
     new_file = {"path": dir_for_file + args[0], "is_directory": False, "access": "open"}
-    print(new_file)
+
 
     if new_file not in files:
         files.append(new_file)
