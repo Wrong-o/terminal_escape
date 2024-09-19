@@ -1,0 +1,38 @@
+[
+    {
+        "path": "~",
+        "is_directory": true,
+        "access": "open",
+        "content": ""
+    },
+    {
+        "path": "~sign.txt",
+        "is_directory": false,
+        "access": "open",
+        "content": ">WARNING\n>The tower has perfect resonance for high pitched 'EEEEE'\nRepeated and highpitched screams will ECHO\ncausing intense vibrations\n//Tux"
+    },
+    {
+        "path": "~/tower/",
+        "is_directory": true,
+        "access": "open",
+        "content": ""
+    },
+    {
+        "path": "",
+        "is_directory": false,
+        "access": "open",
+        "content": ""
+    },
+    {
+        "path": "",
+        "is_directory": true,
+        "access": "",
+        "content": ""
+    },
+    {
+        "path": "",
+        "is_directory": false,
+        "access": "open",
+        "content": ""
+    }
+]

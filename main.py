@@ -52,10 +52,16 @@ top_half_text = [
    
 ]
 
+def load_level(lvl):
+    with open(f"level_{lvl}/files.json", "r") as f:
+        return json.load(f)
+        
+files = load_level(2)
+print(files)
 # File system structure
-with open("level_1/files.json", "r") as f:
-    print("files found")
-    files = json.load(f)
+# with open("level_1/files.json", "r") as f:
+#     print("files found")
+#     files = json.load(f)
 
 # Global variables
 location = "~"
