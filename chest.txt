@@ -1,6 +1,0 @@
-
-In the chest, you find a shovel and a peice of paper:
->I burried the key in a HOLE in these RUINS!
->Can not be found! Dont try!
-You pick up the shovel.
-*the SHOVEL can be USED with "mkdir"* 

@@ -148,7 +148,7 @@ def cmd_mkdir(args):
     
     # Append the new directory to the files list
     files.append({"path": inp, "is_directory": True, "access": "open"})
-    return ["Path added"]
+    return [f"New directory {inp} added"]
 
 def cmd_echo(args):
     if not args:
@@ -184,7 +184,6 @@ def cmd_mv(args):
                 if file["access"] == "open":
                     files = [file for file in files if file["path"] != old_file]
                     files.append({"path": new_file, "is_directory": False, "access": "open"})
-                    print("file moved")
                     return [f"{old_file} is moved to {new_file}"]
                 else:
                     print("Target directory is locked")

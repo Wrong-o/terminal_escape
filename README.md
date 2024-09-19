@@ -6,15 +6,11 @@ To play, run ```python main.py ```
 
 The goal is to have a game where the player progressively gets more bash commands.
 
-To-do list for those who want to contribute:
+To-do list for those who want to contribute. If you want to start working on one of theese, add (your name IP) in the readme and (your name Done) when completed.
 
--LS is not working properly, it lists files in sub directories (fixed)
-
--CD is not consistent with syntax, sometime cd /dir and sometime cd dir/ (fixed)
+-echo command to append to files (Wrong-o IP)
 
 -Spelling mistakes in the txt files
-
--Add mv command to move file. (Completed Otto)
 
 -Fuck around untill you break something, then report
 

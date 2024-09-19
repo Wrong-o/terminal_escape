@@ -21,7 +21,7 @@
         "path": "~/ruins/chest.txt",
         "is_directory": false,
         "access": "open",
-        "content": "In the chest, you find a shovel and a piece of paper:\n>I buried the key in a HOLE in these RUINS!\n>Cannot be found! Don't try!\nYou pick up the shovel.\n*The SHOVEL can be USED with \"mkdir\"*"    },
+        "content": "In the chest, you find a shovel and a piece of paper:\n>I buried the key in a HOLE in these RUINS!\n>Cannot be found! Don't try!\nYou pick up the shovel.\n*The SHOVEL can be USED with \"mkdir\"*\nTo leave the hole, use [cd ..] or [cd ~] to return home."    },
     {
         "path": "~/exit/",
         "is_directory": true,
