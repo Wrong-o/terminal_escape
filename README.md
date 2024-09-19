@@ -1,6 +1,6 @@
 # terminal_escape
 This is a game made for practicing the command line through bash.
-This i primarly a PRACTISE PROJECT for me and my fellow students the AI engineering program.  
+This i primarly a PRACTICE PROJECT for me and my fellow students the AI engineering program.  
 
 To play, run ```python main.py ```
 
@@ -18,6 +18,9 @@ To-do list for those who want to contribute. If you want to start working on one
 
 -Fuck around untill you break something, then report
 
+-Added logic and events to be able to progress to level 2 (ReiGnboW86 IP)
+
+-Improved
 -Make the text and output prettier
 
 -Add music or sound effects
