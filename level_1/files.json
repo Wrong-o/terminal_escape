@@ -9,8 +9,8 @@
         "path": "~note.txt",
         "is_directory": false,
         "access": "open",
-        "content": ">There is a way out\n>The door, /exit/\n>Key is missing\n>Sorry\n//Tux"
-},
+        "content": ">There is a way out\n>The door, /exit/\n>Key is missing\n>Remember to use it on ~/exit \n//Tux"
+    },
     {
         "path": "~/ruins/",
         "is_directory": true,
@@ -21,7 +21,8 @@
         "path": "~/ruins/chest.txt",
         "is_directory": false,
         "access": "open",
-        "content": "In the chest, you find a shovel and a piece of paper:\n>I buried the key in a HOLE in these RUINS!\n>Cannot be found! Don't try!\nYou pick up the shovel.\n*The SHOVEL can be USED with \"mkdir\"*\nTo leave the hole, use [cd ..] or [cd ~] to return home."    },
+        "content": "In the chest, you find a shovel and a piece of paper:\n>I buried the key in a HOLE in these RUINS!\n>Cannot be found! Don't try!\nYou pick up the shovel.\n*The SHOVEL can be USED with \"mkdir\"*\nTo leave the hole, use [cd ..] or [cd ~] to return home."
+    },
     {
         "path": "~/exit/",
         "is_directory": true,
@@ -32,6 +33,6 @@
         "path": "~/ruins/hole/key",
         "is_directory": false,
         "access": "open",
-        "content": ""
+        "content": "Congratulations!\nYou have unlocked the exit!\nPlease proceed to the next level."
     }
 ]

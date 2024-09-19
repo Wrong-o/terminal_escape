@@ -45,9 +45,11 @@ location = "~"
 command_history = []
 top_half_text = [
     {"text": "You have been dropped into an unknown filesystem.", "color": WHITE},
-    {"text": "You have no memory of how you got here, but you know 2 things:", "color": WHITE},
-    {"text": "- Look around you by typing ls", "color": GREEN},
-    {"text": "- Read scrolls (.txt) by typing cat file_name.txt", "color": GREEN}
+    {"text": "You have no memory of how you got here, but you know some things:", "color": WHITE},
+    {"text": "- Look around you by typing 'ls'", "color": GREEN},
+    {"text": "- Read scrolls (.txt) by typing 'cat file_name.txt'", "color": GREEN},
+    {"text": "- Pickup items using 'cat file_name'", "color": GREEN},
+   
 ]
 
 # File system structure
@@ -58,6 +60,7 @@ with open("level_1/files.json", "r") as f:
 # Global variables
 location = "~"
 command_history = []
+inventory = [] # Stores items for player in a list
 
 # Command functions
 def cmd_ls(args):
@@ -114,23 +117,34 @@ def cmd_clear(args):
 def cmd_pwd(args):
     return [location]
 
-def cmd_cat(args):
+def cmd_cat(args): # Edited cmd_cat for key functionality
     global location
     global files
+    global inventory
+
     if not args:
-        return [{"text": "Usage: cat <.txt file>", "color": YELLOW}]
+        return [{"text": "Usage: cat <.txt file> or cat <item>", "color": YELLOW}]
+    
     inp = args[0]
     target = location + inp
-    print(target)
-    try:
-        for file in files:
-            if file["path"] == target:
-                print_to_top(file["content"], color = GREEN)
-                return []
+    
+    for file in files:
+        if file["path"] == target:
+            # If the player is trying to 'cat' the key, pick it up instead of just reading
+            if file["path"] == "~/ruins/hole/key":
+                if "key" not in inventory:
+                    inventory.append("key")
+                    top_half_text.append({"text": "*You pick up the KEY! KEY can be USED with \"mv\"*", "color": GREEN})
+                    return []
+                else:
+                    return [{"text": "You already have the key.", "color": YELLOW}]
+            
+            # For normal txt files, show the content
+            print_to_top(file["content"], color=GREEN)
+            return []  # Stop once we find the file and display its content
 
-        return []
-    except FileNotFoundError:
-        return [{"text": f"File not found: {inp}", "color": RED}]
+    # If we loop through all files and don'tgg find the target
+    return [{"text": f"File not found: {inp}", "color": RED}]
 
 def cmd_mkdir(args):
     global location
@@ -180,38 +194,56 @@ def cmd_echo(args):
 def cmd_mv(args):
     global location
     global files
-    exist = False
+    global inventory
+    global top_half_text  # Access to top text display
+    
     if len(args) != 2:
         return ["Usage: mv <file> <new location>"]
+
     old_file = location + args[0]
-    print(old_file)
+    # print(old_file) # Is this for debugging? I didnt want to remove it
     new_file = args[1]
+    
+    # Check if the player is moving the key and has it in their inventory
+    if "key" in inventory and args[0] == "key" and new_file == "~/exit":
+        # Unlock the exit
+        for file in files:
+            if file["path"] == "~/exit/":
+                file["access"] = "open"
+                inventory.remove("key")  # Remove the key from the inventory after it's used
+                                
+                for file_entry in files:
+                    if file_entry["path"] == "~/ruins/hole/key":
+                        content_lines = file_entry["content"].split("\n")
+                        for line in content_lines:
+                            top_half_text.append({"text": line, "color": GREEN})
+
+                return []  # Return empty so nothing is printed in the terminal
+
+    # Handle regular mv operations if it's not the key
+    exist = False
     for file in files:
         if file["path"] == old_file:
             exist = True
             break
-        else:
-            continue
+
     if exist:
-        print("File extists")
         if "/" in new_file:
-            target_dir =(new_file.rsplit("/", 1)[0] + "/")
+            target_dir = new_file.rsplit("/", 1)[0] + "/"
         else:
             target_dir = "~"
-        print(target_dir)
+        
+        # Check if the target directory exists and is open
         for file in files:
-            if file["path"] == target_dir:
+            if file["path"] == target_dir and file["is_directory"]:
                 if file["access"] == "open":
-                    files = [file for file in files if file["path"] != old_file]
-                    files.append({"path": new_file, "is_directory": False, "access": "open"})
-                    return [f"{old_file} is moved to {new_file}"]
+                    files = [file for file in files if file["path"] != old_file]  # Remove old file
+                    files.append({"path": new_file, "is_directory": False, "access": "open"})  # Add new file location
+                    return [f"{old_file} moved to {new_file}"]
                 else:
-                    print("Target directory is locked")
-                    return [f"{old_file} was not moved, {target_dir} is locked"]
-
-
-    else:
-        return [f"mv: {old_file}: File not found"]
+                    return [f"{target_dir} is locked."]
+    
+    return [f"mv: {old_file}: File not found"]
     
 def cmd_touch(args):
     global location
