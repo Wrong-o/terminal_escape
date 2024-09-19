@@ -56,12 +56,7 @@ def load_level(lvl):
     with open(f"level_{lvl}/files.json", "r") as f:
         return json.load(f)
         
-files = load_level(2)
-print(files)
-# File system structure
-# with open("level_1/files.json", "r") as f:
-#     print("files found")
-#     files = json.load(f)
+files = load_level(1)
 
 # Global variables
 location = "~"
@@ -80,7 +75,7 @@ def cmd_ls(args):
                 color = BLUE if file["is_directory"] else GREEN
                 files_in_location.append({"text": entry, "color": color})
     if files_in_location:
-        command_history.append(f"Files in directory {location}:")
+        command_history.append(f"Looking around in {location} you see the following:")
         return files_in_location
     else:
         return ["ls: no files or directories found in this directory"]
@@ -109,6 +104,8 @@ def cmd_cd(args):
         if file["path"] == new_loc and file["is_directory"]:
             if file["access"] == "open":
                 location = new_loc
+                if file["event"]:
+                    return[file["event"]]
                 return []
             else:
                 return [f"cd: {inp} is locked"]
@@ -166,7 +163,7 @@ def cmd_mkdir(args):
     inp = new_dir + args[0] + "/"
     
     # Append the new directory to the files list
-    files.append({"path": inp, "is_directory": True, "access": "open"})
+    files.append({"path": inp, "is_directory": True, "access": "open", "content": "", "event": ""})
     return [f"New directory {inp} added"]
 
 def cmd_echo(args):

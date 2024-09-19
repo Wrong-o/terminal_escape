@@ -3,36 +3,42 @@
         "path": "~",
         "is_directory": true,
         "access": "open",
-        "content": ""
+        "content": "",
+        "event": "You've return to the home directory"
     },
     {
         "path": "~note.txt",
         "is_directory": false,
         "access": "open",
-        "content": ">There is a way out\n>The door, /exit/\n>Key is missing\n>Remember to use it on ~/exit \n//Tux"
+        "content": ">There is a way out\n>The door, /exit/\n>Key is missing\n>Remember to use it on ~/exit \n//Tux",
+        "event": ""
     },
     {
         "path": "~/ruins/",
         "is_directory": true,
         "access": "open",
-        "content": ""
+        "content": "",
+        "event": "You enter the some old ruins"
     },
     {
         "path": "~/ruins/chest.txt",
         "is_directory": false,
         "access": "open",
-        "content": "In the chest, you find a shovel and a piece of paper:\n>I buried the key in a HOLE in these RUINS!\n>Cannot be found! Don't try!\nYou pick up the shovel.\n*The SHOVEL can be USED with \"mkdir\"*\nTo leave the hole, use [cd ..] or [cd ~] to return home."
+        "content": "In the chest, you find a shovel and a piece of paper:\n>I buried the key in a HOLE in these RUINS!\n>Cannot be found! Don't try!\nYou pick up the shovel.\n*The SHOVEL can be USED with \"mkdir\"*\nTo leave the hole, use [cd ..] or [cd ~] to return home.",
+        "event": ""
     },
     {
         "path": "~/exit/",
         "is_directory": true,
         "access": "locked",
-        "content": ""
+        "content": "",
+        "event": "You open the locked door and escape level 1. Congratulation"
     },
     {
         "path": "~/ruins/hole/key",
         "is_directory": false,
         "access": "open",
-        "content": "Congratulations!\nYou have unlocked the exit!\nPlease proceed to the next level."
+        "content": "Congratulations!\nYou have unlocked the exit!\nPlease proceed to the next level.",
+        "event": ""
     }
 ]
