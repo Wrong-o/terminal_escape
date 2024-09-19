@@ -55,7 +55,8 @@ top_half_text = [
 def load_level(lvl):
     with open(f"level_{lvl}/files.json", "r") as f:
         return json.load(f)
-        
+
+#Change load_level(<level>) to the level files you want to load 
 files = load_level(1)
 
 # Global variables
@@ -221,7 +222,7 @@ def cmd_mv(args):
         if file["path"] == old_file:
             exist = True
             break
-
+    print(exist)
     if exist:
         if "/" in new_file:
             target_dir = new_file.rsplit("/", 1)[0] + "/"

@@ -32,7 +32,8 @@
         "is_directory": true,
         "access": "locked",
         "content": "",
-        "event": "You open the locked door and escape level 1. Congratulation"
+        "event": "You open the locked door and escape level 1. Congratulation",
+        "level_switch": true
     },
     {
         "path": "~/ruins/hole/key",
