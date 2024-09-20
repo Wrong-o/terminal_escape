@@ -214,31 +214,44 @@ def cmd_mv(args):
                         for line in content_lines:
                             top_half_text.append({"text": line, "color": GREEN})
 
-                return []  # Return empty so nothing is printed in the terminal
+                return ["The key fits but gets stuck in the door"]  # Return empty so nothing is printed in the terminal
 
     # Handle regular mv operations if it's not the key
-    exist = False
+    file_exist = False
+    target_dir_open = False
+    
     for file in files:
         if file["path"] == old_file:
-            exist = True
+            file_exist = True
             break
-    print(exist)
-    if exist:
+    print(file_exist)
+    if file_exist:
         if "/" in new_file:
             target_dir = new_file.rsplit("/", 1)[0] + "/"
         else:
             target_dir = "~"
         
-        # Check if the target directory exists and is open
+        # Check if the target directory exists and is ope
+        print(target_dir)
         for file in files:
+            print(file["path"])
             if file["path"] == target_dir and file["is_directory"]:
+                print("found the right dir")
                 if file["access"] == "open":
-                    files = [file for file in files if file["path"] != old_file]  # Remove old file
-                    files.append({"path": new_file, "is_directory": False, "access": "open"})  # Add new file location
-                    return [f"{old_file} moved to {new_file}"]
+                    target_dir_open = True
+                    break
                 else:
                     return [f"{target_dir} is locked."]
+            
     
+    # If the file exists and the target dir is open, move the file while maintaining all properties
+    print(old_file, new_file, file_exist, target_dir_open)
+    if file_exist == True and target_dir_open == True:
+        for file in files:
+            if file["path"] == old_file:
+                file["path"] = new_file
+                return[f"{args[0]} moved to {args[1]}"]
+                
     return [f"mv: {old_file}: File not found"]
     
 def cmd_touch(args):

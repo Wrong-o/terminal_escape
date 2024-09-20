@@ -11,7 +11,7 @@
         "is_directory": false,
         "access": "open",
         "content": ">There is a way out\n>The door, /exit/\n>Key is missing\n>Remember to use it on ~/exit \n//Tux",
-        "event": ""
+        "event": "load_level(2)"
     },
     {
         "path": "~/ruins/",
