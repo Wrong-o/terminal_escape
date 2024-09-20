@@ -57,7 +57,7 @@ def load_level(lvl):
         return json.load(f)
 
 #Change load_level(<level>) to the level files you want to load 
-files = load_level(1)
+files = load_level(2)
 
 # Global variables
 location = "~"

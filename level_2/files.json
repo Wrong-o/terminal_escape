@@ -3,7 +3,8 @@
         "path": "~",
         "is_directory": true,
         "access": "open",
-        "content": ""
+        "content": "",
+        "event": "You have returned to your home directory"
     },
     {
         "path": "~sign.txt",
@@ -15,10 +16,11 @@
         "path": "~/tower/",
         "is_directory": true,
         "access": "open",
-        "content": ""
+        "content": "",
+        "event": "The tower is tall and hollow, the echo is really loud. A big cage with a post it notes in it sits on a pedistal"
     },
     {
-        "path": "",
+        "path": "~/tower/",
         "is_directory": false,
         "access": "open",
         "content": ""

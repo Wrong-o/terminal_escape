@@ -1,0 +1,3 @@
+The player will use echo eeeee to scream in the tower. Bricks of the old tower will fall down, the third crushing the cage giving the player the post it notes. Stones now lie on the tower floor
+once the player has the post it notes, it can use touch to create a note and echo >> <text> to add text to it. 
+The player writes the correct text and puts the post it somewhere, not decided yet.
